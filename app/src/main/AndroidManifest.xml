@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".Login" />
         <activity android:name=".Register" />
-        <activity android:name=".Activation"></activity>
+        <activity android:name=".Activation" />
+        <activity android:name=".CodeSuccessfully" />
+        <activity android:name=".Home"></activity>
     </application>
 
 </manifest>
