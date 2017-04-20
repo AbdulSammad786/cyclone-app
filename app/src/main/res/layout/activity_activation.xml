@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/activationback"
-    tools:context="com.example.samad786.cyclone.Activation">
+    tools:context="com.example.samad786.cyclone.Activities.Activities.Activation">
 <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -88,6 +88,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/activate"
+        android:onClick="activation"
         android:layout_marginBottom="10dp"
         android:background="@drawable/activateicon"
         android:layout_alignParentBottom="true"

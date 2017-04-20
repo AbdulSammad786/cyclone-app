@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/back"
     android:layout_height="match_parent"
-    tools:context="com.example.samad786.cyclone.Register">
+    tools:context="com.example.samad786.cyclone.Activities.Activities.Register">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="70dp"

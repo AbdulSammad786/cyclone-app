@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/appcolor"
-    tools:context="com.example.samad786.cyclone.Splash">
+    tools:context="com.example.samad786.cyclone.Activities.Activities.Splash">
 <ImageView
     android:layout_width="140dp"
     android:layout_height="150dp"

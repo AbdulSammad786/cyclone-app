@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.samad786.cyclone.CodeSuccessfully">
+    tools:context="com.example.samad786.cyclone.Activities.Activities.CodeSuccessfully">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerInParent="true"
-        >
+        android:id="@+id/linearLayout">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,10 +30,11 @@
         android:text="Next"
         android:textSize="20dp"
         android:textColor="@android:color/black"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginBottom="31dp"
         android:onClick="homescreen"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/linearLayout"
+        android:layout_toEndOf="@+id/linearLayout"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp" />
 </RelativeLayout>
