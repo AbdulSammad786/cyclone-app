@@ -14,7 +14,7 @@
     android:id="@+id/logoimage"
     />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -25,27 +25,29 @@
         android:layout_marginTop="50dp"
         >
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Username"
-            android:layout_weight="0.2"
+            android:id="@+id/text"
             android:textColor="@android:color/white"
             />
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:textColor="@android:color/white"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:id="@+id/username"
-            android:layout_weight="0.7"
+            android:layout_toLeftOf="@+id/im"
+            android:layout_toRightOf="@+id/text"
             />
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_weight="0.05"
+            android:id="@+id/im"
+            android:layout_alignParentRight="true"
             android:background="@drawable/usename"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -55,7 +57,7 @@
         android:background="@android:color/white"
         android:layout_below="@+id/emaillayout"
         ></View>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,27 +67,29 @@
         android:layout_marginTop="20dp"
         >
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
-            android:layout_weight="0.2"
+            android:id="@+id/textpass"
             android:textColor="@android:color/white"
             />
         <EditText
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:id="@+id/password"
+            android:layout_toLeftOf="@+id/passimg"
             android:textColor="@android:color/white"
-            android:layout_weight="0.7"
+            android:layout_toRightOf="@+id/textpass"
             />
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_weight="0.05"
+            android:id="@+id/passimg"
+            android:layout_alignParentRight="true"
             android:background="@drawable/password"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

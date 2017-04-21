@@ -50,33 +50,36 @@
         android:id="@+id/details"
         android:layout_marginRight="10dp"
         />
-    <RelativeLayout
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/timelayout"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/appcolor"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="42"
-            android:id="@+id/time"
-            android:textColor="@android:color/white"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="mints"
-            android:textSize="10dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@android:color/white"
-            android:layout_below="@+id/time"
-            />
-    </RelativeLayout>
+   ////////////
+
+
+        <RelativeLayout
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/timelayout"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/appcolor"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="42"
+                android:id="@+id/time"
+                android:textColor="@android:color/white"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mints"
+                android:textSize="10dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/time"
+                />
+        </RelativeLayout>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -193,7 +196,6 @@
             android:layout_centerVertical="true"
             />
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -356,27 +358,46 @@
         android:layout_marginRight="10dp"
         android:background="@android:color/black"
         >
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:text="Delivery"
-            android:textSize="25dp"
-            android:checked="true"
-            android:textColor="@android:color/white"
+            android:id="@+id/c1"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/unchecked"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             />
-        <CheckBox
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery"
+            android:layout_toRightOf="@+id/c1"
+            android:textColor="@android:color/white"
+            android:textSize="25dp"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="Collection"
+            android:background="@drawable/unchecked"
+            android:layout_centerVertical="true"
+            android:id="@+id/c2"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/Collection"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Collection"
-            android:checked="true"
+            android:id="@+id/Collection"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
             android:textSize="25dp"
             android:layout_centerVertical="true"
-            android:textColor="@android:color/white"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
             />
     </RelativeLayout>
     <RelativeLayout
@@ -387,27 +408,48 @@
         android:layout_marginRight="10dp"
         android:background="@android:color/black"
         >
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/c3"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="10dp"
-            android:text="Card"
-            android:textSize="25dp"
-            android:checked="true"
-            android:textColor="@android:color/white"
+            android:background="@drawable/unchecked"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             />
-        <CheckBox
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card"
+            android:layout_toRightOf="@+id/c3"
+            android:textColor="@android:color/white"
+            android:textSize="25dp"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="Collection"
+            android:background="@drawable/unchecked"
+            android:layout_centerVertical="true"
+            android:id="@+id/c4"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/Cash"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cash"
-            android:checked="true"
+            android:id="@+id/Cash"
+            android:layout_marginRight="52dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
             android:textSize="25dp"
             android:layout_centerVertical="true"
-            android:textColor="@android:color/white"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
             />
     </RelativeLayout>
     <Button
@@ -417,6 +459,7 @@
         android:layout_margin="10dp"
         android:textColor="@android:color/white"
         android:text="Send Order"
+        android:id="@+id/sendorder"
         android:textAllCaps="false"
         android:textSize="25dp"
         />
