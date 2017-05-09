@@ -6,32 +6,32 @@
     android:layout_height="match_parent"
     android:background="@drawable/activationback"
     tools:context="com.example.samad786.cyclone.Activities.Activities.Activation">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/toplayout"
-    android:layout_marginTop="50dp"
-    android:layout_centerHorizontal="true"
-    >
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello!"
-        android:gravity="center"
-        android:textSize="25dp"
-        android:textColor="@android:color/white"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sammad"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="15dp"
-        android:textColor="@android:color/white"
-        />
-</LinearLayout>
+        android:orientation="vertical"
+        android:id="@+id/toplayout"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello!"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textColor="@android:color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sammad"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,22 +63,34 @@
             android:layout_width="40dp"
             android:textColor="@android:color/white"
             android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLength="1"
+            android:id="@+id/n1"
             android:backgroundTint="@android:color/white"
             />
         <EditText
             android:layout_width="40dp"
+            android:id="@+id/n2"
+            android:textColor="@android:color/white"
+            android:singleLine="true"
+            android:maxLength="1"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            />
+        <EditText
+            android:layout_width="40dp"
+            android:singleLine="true"
+            android:maxLength="1"
+            android:id="@+id/n3"
             android:textColor="@android:color/white"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/white"
             />
         <EditText
             android:layout_width="40dp"
-            android:textColor="@android:color/white"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/white"
-            />
-        <EditText
-            android:layout_width="40dp"
+            android:singleLine="true"
+            android:maxLength="1"
+            android:id="@+id/n4"
             android:textColor="@android:color/white"
             android:layout_height="wrap_content"
             android:backgroundTint="@android:color/white"

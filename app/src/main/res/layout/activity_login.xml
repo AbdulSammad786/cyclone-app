@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/back"
     tools:context="com.example.samad786.cyclone.Activities.Activities.Login">
-<ImageView
-    android:layout_width="140dp"
-    android:layout_height="150dp"
-    android:background="@drawable/logo"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/logoimage"
-    />
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="150dp"
+        android:background="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/logoimage"
+        />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Username:"
+            android:text="Username"
             android:layout_centerVertical="true"
             android:id="@+id/text"
             android:textColor="@android:color/white"
@@ -38,8 +39,9 @@
             android:background="@android:color/transparent"
             android:id="@+id/username"
             android:textSize="15dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_centerVertical="true"
+            android:singleLine="true"
             android:layout_toLeftOf="@+id/im"
             android:layout_toRightOf="@+id/text"
             />
@@ -72,7 +74,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password:"
+            android:text="Password"
             android:layout_centerVertical="true"
             android:id="@+id/textpass"
             android:textColor="@android:color/white"
@@ -80,12 +82,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:background="@android:color/transparent"
             android:id="@+id/password"
-            android:layout_centerVertical="true"
             android:textSize="15dp"
             android:inputType="textPassword"
-            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
             android:layout_toLeftOf="@+id/passimg"
             android:textColor="@android:color/white"
             android:layout_toRightOf="@+id/textpass"
@@ -106,31 +109,31 @@
         android:layout_above="@+id/forgetpass"
         android:layout_marginBottom="20dp"
         >
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_height="70dp">
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:onClick="activation"
-            android:background="@drawable/logincircle"
-            />
-        <View
-            android:layout_width="2dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:background="@android:color/white"
-            ></View>
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:onClick="register"
-            android:layout_marginLeft="30dp"
-            android:background="@drawable/registercircle"
-            />
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="70dp">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:onClick="activation"
+                android:background="@drawable/logincircle"
+                />
+            <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:background="@android:color/white"
+                ></View>
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:onClick="register"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/registercircle"
+                />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="horizontal"
@@ -152,7 +155,7 @@
             <ImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginLeft="23dp"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/googlecircle"
                 />
         </LinearLayout>
