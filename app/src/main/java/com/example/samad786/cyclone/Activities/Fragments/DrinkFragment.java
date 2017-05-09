@@ -20,7 +20,6 @@ import java.util.ArrayList;
 /**
  * Created by samad786 on 4/20/2017.
  */
-
 public class DrinkFragment  extends Fragment {
     ListView listview,foodslistview;
     String[] items={"CocCola","Pepsi","Sting","Fanta"};
