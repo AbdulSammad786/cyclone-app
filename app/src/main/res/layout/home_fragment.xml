@@ -2,13 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="4"
+    android:id="@+id/toplayout"
     >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,13 +40,12 @@
             />
     </RelativeLayout>
     <fragment
-        android:layout_weight="3"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
+        android:layout_weight="3"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:context="com.example.samad786.cyclone.Activities.Activities.MapsActivity" />
+        android:layout_height="match_parent"
+        />
+  </LinearLayout>
 
-</LinearLayout>
 </RelativeLayout>

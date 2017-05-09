@@ -47,7 +47,7 @@
             android:layout_height="20dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@android:drawable/ic_partial_secure"
+            android:background="@drawable/basket"
             />
     </RelativeLayout>
 </RelativeLayout>
