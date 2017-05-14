@@ -5,8 +5,8 @@ package com.example.samad786.cyclone.Activities.DataProviers;
  */
 
 public class RestutantsListDataProvider {
-    String id,namelocation,details,time;
-    int logo,hotel_image;
+    String id,name,details,time;
+    String logo_url,hotel_image_url;
 
     public String getId() {
         return id;
@@ -17,11 +17,11 @@ public class RestutantsListDataProvider {
     }
 
     public String getNamelocation() {
-        return namelocation;
+        return name;
     }
 
     public void setNamelocation(String namelocation) {
-        this.namelocation = namelocation;
+        this.name = namelocation;
     }
 
     public String getDetails() {
@@ -40,29 +40,29 @@ public class RestutantsListDataProvider {
         this.time = time;
     }
 
-    public int getLogo() {
-        return logo;
+    public String getLogo() {
+        return logo_url;
     }
 
-    public void setLogo(int logo) {
-        this.logo = logo;
+    public void setLogo(String logo) {
+        this.logo_url = logo;
     }
 
-    public int getHotel_image() {
-        return hotel_image;
+    public String getHotel_image() {
+        return hotel_image_url;
     }
 
-    public void setHotel_image(int hotel_image) {
-        this.hotel_image = hotel_image;
+    public void setHotel_image(String hotel_image) {
+        this.hotel_image_url = hotel_image;
     }
 
-    public RestutantsListDataProvider(String id, String namelocation, String details, String time, int logo, int hotel_image) {
+    public RestutantsListDataProvider(String id, String name, String details, String time, String logo, String hotel_image) {
 
         this.id = id;
-        this.namelocation = namelocation;
+        this.name = name;
         this.details = details;
         this.time = time;
-        this.logo = logo;
-        this.hotel_image = hotel_image;
+        this.logo_url = logo;
+        this.hotel_image_url = hotel_image;
     }
 }

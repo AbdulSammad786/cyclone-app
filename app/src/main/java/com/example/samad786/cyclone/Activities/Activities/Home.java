@@ -91,7 +91,7 @@ public class Home extends AppCompatActivity {
          */
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.replace(R.id.containerView,new HomeFragment()).commit();
+        transaction.replace(R.id.containerView,new MainMenu()).commit();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
