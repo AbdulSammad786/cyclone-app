@@ -105,7 +105,7 @@ public class Activation extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (n4.getText().length()==1)
                 {
-                    authenticateCode();
+                   authenticateCode();
                 }
             }
         });

@@ -70,9 +70,9 @@ public class ResturantMenu extends Fragment {
         public Fragment getItem(int position)
         {
             switch (position){
-                case 0 : return new MenuFragment();
-                case 1 : return new FoodFragment();
-                case 2 : return new DrinkFragment();
+                case 0 : return new FoodCategories();
+                case 1 : return new FoodCategories();
+                case 2 : return new FoodCategories();
             }
             return null;
         }
@@ -93,10 +93,8 @@ public class ResturantMenu extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Menu";
-                case 1 :
                     return "Food";
-                case 2 :
+                case 1 :
                     return "Drink";
             }
             return null;

@@ -108,7 +108,7 @@ public class Resturants_list extends Fragment {
             // check if GPS location can get
             if (gps.canGetLocation()) {
                 Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
-                new LoadPlaces().execute();
+               // new LoadPlaces().execute();
             } else {
                 // Can't get user's current location
                 mydialog.showDialog("GPS Status",
@@ -151,7 +151,7 @@ public class Resturants_list extends Fragment {
                 //
                 String types = "cafe|restaurant"; // Listing places only cafes, restaurants
                 // Radius in meters - increase this value if you don't find any places
-                double radius = 1000; // 1000 meters
+                double radius = 10000; // 1000 meters
 
                 // get nearest places
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
