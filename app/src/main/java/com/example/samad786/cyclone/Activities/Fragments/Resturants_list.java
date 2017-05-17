@@ -1,5 +1,4 @@
 package com.example.samad786.cyclone.Activities.Fragments;
-
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,13 +38,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * Created by samad786 on 4/19/2017.
  */
-
 public class Resturants_list extends Fragment {
-
     // flag for Internet connection status
     Boolean isInternetPresent = false;
     // Connection detector class
@@ -108,7 +104,7 @@ public class Resturants_list extends Fragment {
             // check if GPS location can get
             if (gps.canGetLocation()) {
                 Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
-               // new LoadPlaces().execute();
+                new LoadPlaces().execute();
             } else {
                 // Can't get user's current location
                 mydialog.showDialog("GPS Status",
@@ -137,7 +133,6 @@ public class Resturants_list extends Fragment {
             pDialog.setCancelable(false);
             pDialog.show();
         }
-
         /**
          * getting Places JSON
          * */
@@ -151,8 +146,7 @@ public class Resturants_list extends Fragment {
                 //
                 String types = "cafe|restaurant"; // Listing places only cafes, restaurants
                 // Radius in meters - increase this value if you don't find any places
-                double radius = 10000; // 1000 meters
-
+                double radius = 5000; // 1000 meters
                 // get nearest places
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
                         gps.getLongitude(), radius, types);
@@ -185,7 +179,6 @@ public class Resturants_list extends Fragment {
                 if (nearPlaces.results != null) {
                     // loop through each place
                     Log.d("Array list not null", "onPostExecute: ");
-                    Toast.makeText(getActivity(), "total places found="+nearPlaces.results.size(), Toast.LENGTH_SHORT).show();
                     for (Place p : nearPlaces.results) {
                         HashMap<String, String> map = new HashMap<String, String>();
                         // Place reference won't display in listview - it will be hidden
@@ -198,7 +191,7 @@ public class Resturants_list extends Fragment {
                         // adding HashMap to ArrayList
                         placesListItems.add(map);
                     }
-                    loadServerData("http://www.cyclonedelivery.com/cyclone_app/getData.php","restaurants");
+                    loadServerData("http://www.cyclonedelivery.com/cyclone_app/getRestaurants.php","restaurants");
                 }
             } else if (status.equals("ZERO_RESULTS")) {
                 // Zero results found
@@ -225,14 +218,16 @@ public class Resturants_list extends Fragment {
                 JSONArray data = obj.getJSONArray("data");
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject mydata=data.getJSONObject(i);
-                 if (name.get(i).equalsIgnoreCase(mydata.getString("name"))) {
-                  id.add(mydata.getString("id"));
-                     name.add(mydata.getString("name"));
-                     deliverytime.add(mydata.getString("delivery_time"));
-                     logo.add(mydata.getString("logo"));
-                     titleimage.add(mydata.getString("title_image"));
-                     description.add(mydata.getString("description"));
-                 }
+                    for(int j=0;j<names.size();j++) {
+                        if (names.get(j).equalsIgnoreCase(mydata.getString("name"))) {
+                            id.add(mydata.getString("id"));
+                            name.add(mydata.getString("name"));
+                            deliverytime.add(mydata.getString("delivery_time"));
+                            logo.add(mydata.getString("logo_url"));
+                            titleimage.add(mydata.getString("title_image_url"));
+                            description.add(mydata.getString("description"));
+                        }
+                    }
                 }
                 if (name.size()>0)
                 {
@@ -270,7 +265,6 @@ public class Resturants_list extends Fragment {
             @Override
             protected java.util.Map<String, String> getParams() {
                 java.util.Map<String, String> params = new HashMap<String, String>();
-                params.put("data_id",data_id);
                 return params;
             }
         };

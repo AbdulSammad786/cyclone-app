@@ -29,7 +29,7 @@ public class MainMenu  extends Fragment {
             public void onClick(View v) {
                 FragmentManager  manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.containerView,new ResturantMenu()).commit();
+                transaction.replace(R.id.containerView,new Resturants_list()).commit();
             }
         });
         return view;
