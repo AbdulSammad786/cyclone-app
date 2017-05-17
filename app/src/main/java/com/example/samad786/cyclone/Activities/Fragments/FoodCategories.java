@@ -49,11 +49,14 @@ public class FoodCategories  extends Fragment {
     ListView listView;
     Dialogs mydiaDialogs;
     SharedPreferences preferences;
+    TextView nodatafound;
     ArrayList<String> f_id,f_title;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.food_categories, null, false);
+        nodatafound=(TextView)view.findViewById(R.id.nodatafound);
+        nodatafound.setVisibility(View.INVISIBLE);
         mydiaDialogs=new Dialogs(getActivity());
         preferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         listView=(ListView) view.findViewById(R.id.listview);
@@ -100,10 +103,11 @@ public class FoodCategories  extends Fragment {
                 }
                 loadFoods();
             }else {
+                nodatafound.setVisibility(View.VISIBLE);
                 Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
             }
         }else
-        {
+        {nodatafound.setVisibility(View.VISIBLE);
             Toast.makeText(getActivity(), "Responce Unsuccessfull", Toast.LENGTH_SHORT).show();
         }
 
@@ -130,6 +134,7 @@ public class FoodCategories  extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("error",error.toString());
                         mydiaDialogs.hideProgress();
+                        nodatafound.setVisibility(View.VISIBLE);
                         mydiaDialogs.showDialog("Error","Internal Problem occurred ! Pleae try again later");
                     }
                 }) {

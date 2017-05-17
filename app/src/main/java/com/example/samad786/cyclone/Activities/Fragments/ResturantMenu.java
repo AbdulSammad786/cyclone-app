@@ -71,8 +71,8 @@ public class ResturantMenu extends Fragment {
         {
             switch (position){
                 case 0 : return new FoodCategories();
-                case 1 : return new FoodCategories();
-                case 2 : return new FoodCategories();
+                case 1 : return new DrinkCategories();
+                case 2 : return new DrinkCategories();
             }
             return null;
         }

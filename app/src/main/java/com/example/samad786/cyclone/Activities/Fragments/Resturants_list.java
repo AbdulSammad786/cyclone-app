@@ -46,32 +46,21 @@ import java.util.HashMap;
  * Created by samad786 on 4/19/2017.
  */
 public class Resturants_list extends Fragment {
-    // flag for Internet connection status
     Boolean isInternetPresent = false;
-    // Connection detector class
     ConnectionDetector cd;
-    // Alert Dialog Manager
     Dialogs mydialog;
-    // Google Places
     GooglePlaces googlePlaces;
-    // Places List
     PlaceList nearPlaces;
-    // GPS Location
     GPSTracker gps;
-    // Button
-    Button btnShowOnMap;
-    // Progress dialog
     ProgressDialog pDialog;
-    // Places Listview
-    ListView lv;
-    // ListItems data
     ArrayList<HashMap<String, String>> placesListItems = new ArrayList<HashMap<String,String>>();
-    public static String KEY_REFERENCE = "reference"; // id of the place
-    public static String KEY_NAME = "restaurant"; // name of the place
-    public static String KEY_VICINITY = "vicinity"; // Place area name
+    public static String KEY_REFERENCE = "reference";
+    public static String KEY_NAME = "restaurant";
+    public static String KEY_VICINITY = "vicinity";
     ResturantsListAdapter adapter;
     ArrayList<RestutantsListDataProvider> arraylist;
     ListView listview;
+    TextView nodatafound;
     ArrayList<String> names,id,name,description,logo,titleimage,deliverytime;
     SharedPreferences preferences;
     @Nullable
@@ -80,6 +69,7 @@ public class Resturants_list extends Fragment {
         View view = inflater.inflate(R.layout.list_resturants, null, false);
         preferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         listview=(ListView)view.findViewById(R.id.listivew);
+        nodatafound=(TextView)view.findViewById(R.id.nodatafound);
         names=new ArrayList<>();
         id=new ArrayList<>();
         name=new ArrayList<>();
@@ -114,7 +104,7 @@ public class Resturants_list extends Fragment {
             // check if GPS location can get
             if (gps.canGetLocation()) {
                 Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
-               // new LoadPlaces().execute();
+                new LoadPlaces().execute();
             } else {
                 // Can't get user's current location
                 mydialog.showDialog("GPS Status",
@@ -125,12 +115,8 @@ public class Resturants_list extends Fragment {
             mydialog.showDialog("Error","Internet Connect Problem");
             // stop executing code by return
         }
-        loadServerData("http://www.cyclonedelivery.com/cyclone_app/getRestaurants.php","restaurants");
         return view;
     }
-    /**
-     * Background Async Task to Load Google places
-     * */
     class LoadPlaces extends AsyncTask<String, String, String> {
         /**
          * Before starting background thread Show Progress Dialog
@@ -155,19 +141,17 @@ public class Resturants_list extends Fragment {
                 // If you want all types places make it as null
                 // Check list of types supported by google
                 //
-                String types = "cafe|restaurant"; // Listing places only cafes, restaurants
+                String types = preferences.getString("list",""); // Listing places only cafes, restaurants
                 // Radius in meters - increase this value if you don't find any places
-                double radius = 5000; // 1000 meters
+                double radius = 8000; // 1000 meters
                 // get nearest places
                 nearPlaces = googlePlaces.search(gps.getLatitude(),
                         gps.getLongitude(), radius, types);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
-
         /**
          * After completing background task Dismiss the progress dialog
          * and show the data in UI
@@ -185,67 +169,77 @@ public class Resturants_list extends Fragment {
             String status = nearPlaces.status;
             // Check for all possible status
             if (status.equals("OK")) {
-                // Successfully got places details
-                Log.d("result OK", "onPostExecute: ");
-                if (nearPlaces.results != null) {
-                    // loop through each place
-                    Log.d("Array list not null", "onPostExecute: ");
+                if (nearPlaces.results != null)
+                {
+                    nodatafound.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getActivity(), "results="+nearPlaces.results.size(), Toast.LENGTH_SHORT).show();
                     for (Place p : nearPlaces.results) {
                         HashMap<String, String> map = new HashMap<String, String>();
-                        // Place reference won't display in listview - it will be hidden
-                        // Place reference is used to get "place full details"
                         map.put(KEY_REFERENCE, p.reference);
-                        // Place name
                         map.put(KEY_NAME, p.name);
-                        Log.d("place name= ", p.name);
                         names.add(p.name);
-                        // adding HashMap to ArrayList
+                        Log.d(p.name, "Restaurant: ");
                         placesListItems.add(map);
                     }
                     loadServerData("http://www.cyclonedelivery.com/cyclone_app/getRestaurants.php","restaurants");
+                }else
+                {
+                    nodatafound.setVisibility(View.VISIBLE);
                 }
             } else if (status.equals("ZERO_RESULTS")) {
                 // Zero results found
+                nodatafound.setVisibility(View.VISIBLE);
                 mydialog.showDialog("Near Places","Sorry no places found. Try to change the types of places");
             } else if (status.equals("UNKNOWN_ERROR")) {
+                nodatafound.setVisibility(View.VISIBLE);
                 mydialog.showDialog("Places Error", "Sorry unknown error occured.");
             } else if (status.equals("OVER_QUERY_LIMIT")) {
+                nodatafound.setVisibility(View.VISIBLE);
                 mydialog.showDialog("Places Error", "Sorry query limit to google places is reached");
             } else if (status.equals("REQUEST_DENIED")) {
+                nodatafound.setVisibility(View.VISIBLE);
                 mydialog.showDialog("Places Error", "Sorry error occured. Request is denied");
             } else if (status.equals("INVALID_REQUEST")) {
+                nodatafound.setVisibility(View.VISIBLE);
                 mydialog.showDialog("Places Error", "Sorry error occured. Invalid Request");
             } else {
+                nodatafound.setVisibility(View.VISIBLE);
                 mydialog.showDialog("Places Error", "Sorry error occured.");
             }
         }
     }
-    private void parseJson(String json)
-    {
+    private void parseJson(String json) {
         try
         {
             JSONObject obj=new JSONObject(json);
-            if (obj.getString("success").equalsIgnoreCase("true")) {
+            if (obj.getString("success").equalsIgnoreCase("true"))
+            {
                 JSONArray data = obj.getJSONArray("data");
-                for (int i = 0; i < data.length(); i++) {
+                for (int i = 0; i < data.length(); i++)
+                {
                     JSONObject mydata=data.getJSONObject(i);
-                  //  for(int j=0;j<names.size();j++) {
-                      //  if (names.get(j).equalsIgnoreCase(mydata.getString("name"))) {
+                    for(int j=0;j<names.size();j++)
+                    {
+                        if (names.get(j).equalsIgnoreCase(mydata.getString("name"))) {
                             id.add(mydata.getString("id"));
                             name.add(mydata.getString("name"));
                             deliverytime.add(mydata.getString("delivery_time"));
                             logo.add(mydata.getString("logo_url"));
                             titleimage.add(mydata.getString("title_image_url"));
                             description.add(mydata.getString("description"));
-                       // }
-                   // }
+                        }
+                    }
                 }
                 if (name.size()>0)
                 {
                     loadData();
                 }else {
                     mydialog.showDialog("Sorry", "No Restaurants found nearby within 5 km radius");
+                    nodatafound.setVisibility(View.VISIBLE);
                 }
+            }else
+            {
+                nodatafound.setVisibility(View.VISIBLE);
             }
         }catch (Exception ex)
         {
@@ -270,6 +264,7 @@ public class Resturants_list extends Fragment {
                     public void onErrorResponse(VolleyError error) {
                         Log.d("error",error.toString());
                         mydialog.hideProgress();
+                        nodatafound.setVisibility(View.VISIBLE);
                         mydialog.showDialog("Error","Internal Problem occurred ! Pleae try again later");
                     }
                 }) {

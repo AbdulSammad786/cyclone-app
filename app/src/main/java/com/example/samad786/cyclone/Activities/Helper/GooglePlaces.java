@@ -43,13 +43,10 @@ public class GooglePlaces {
      * */
     public PlaceList search(double latitude, double longitude, double radius, String types)
             throws Exception {
-
         this._latitude = latitude;
         this._longitude = longitude;
         this._radius = radius;
-
         try {
-
             HttpRequestFactory httpRequestFactory = createRequestFactory(HTTP_TRANSPORT);
             HttpRequest request = httpRequestFactory
                     .buildGetRequest(new GenericUrl(PLACES_SEARCH_URL));

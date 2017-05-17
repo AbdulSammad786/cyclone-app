@@ -1,18 +1,17 @@
 package com.example.samad786.cyclone.Activities.Fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.util.ValueIterator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,97 +23,98 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.samad786.cyclone.Activities.Adapters.FoodsAdapter;
+import com.example.samad786.cyclone.Activities.Adapters.FoodsCategoriesAdapter;
 import com.example.samad786.cyclone.Activities.AppController;
+import com.example.samad786.cyclone.Activities.DataProviers.FoodsCategories;
 import com.example.samad786.cyclone.Activities.DataProviers.FoodsDataProvider;
 import com.example.samad786.cyclone.Activities.Helper.Dialogs;
 import com.example.samad786.cyclone.R;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * Created by samad786 on 4/20/2017.
+ * Created by mediapark on 16/05/2017.
  */
-public class FoodFragment  extends Fragment {
-    ListView foodslistview;
-    String[] items={"Breakfast","Smoothies","Salads"};
-    ArrayList<FoodsDataProvider> arrayList;
-    FoodsAdapter foodsadapter;
-    ArrayList<String> fi_id,image_url,price;
-    RelativeLayout ordeerlayout;
-    TextView ordernow;
-    Dialogs mydialogs;
+public class DrinkCategories  extends Fragment {
+    FoodsCategoriesAdapter adapter;
+    ArrayList<FoodsCategories> araylist;
+    ListView listView;
+    Dialogs mydiaDialogs;
     SharedPreferences preferences;
     TextView nodatafound;
+    ArrayList<String> f_id,f_title;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.foodframent, null, false);
-        preferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        View view = inflater.inflate(R.layout.food_categories, null, false);
         nodatafound=(TextView)view.findViewById(R.id.nodatafound);
         nodatafound.setVisibility(View.INVISIBLE);
-        fi_id=new ArrayList<>();
-        image_url=new ArrayList<>();
-        price=new ArrayList<>();
-        mydialogs=new Dialogs(getActivity());
-        ordernow=(TextView)view.findViewById(R.id.ordernow);
-        ordernow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager=getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction=manager.beginTransaction();
-                transaction.replace(R.id.containerView,new OrderFragment()).commit();
-            }
-        });
-         ordeerlayout=(RelativeLayout)view.findViewById(R.id.orderlayout);
-        foodslistview=(ListView)view.findViewById(R.id.foodslistview);
-        arrayList=new ArrayList<>();
-        loadData("http://www.cyclonedelivery.com/cyclone_app/getFoodItems.php");
+        mydiaDialogs=new Dialogs(getActivity());
+        preferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        listView=(ListView) view.findViewById(R.id.listview);
+        araylist=new ArrayList<>();
+        f_id=new ArrayList<>();
+        f_title=new ArrayList<>();
+        loadData("http://www.cyclonedelivery.com/cyclone_app/getDrinks.php");
         return view;
     }
-    private void loadFoods() {
-        for(int i=0;i<fi_id.size();i++)
+    private void loadFoods()
+    {
+        for(int i=0;i<f_title.size();i++)
         {
-            arrayList.add(new FoodsDataProvider(fi_id.get(i),price.get(i),image_url.get(i)));
+            araylist.add(new FoodsCategories(f_id.get(i),f_title.get(i)));
         }
-        foodsadapter=new FoodsAdapter(getActivity(),arrayList);
-        foodslistview.setAdapter(foodsadapter);
+        adapter=new FoodsCategoriesAdapter(getActivity(),araylist);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView fid=(TextView)view.findViewById(R.id.id);
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("d_id",fid.getText().toString());
+                editor.apply();
+                FragmentManager manager=getActivity().getSupportFragmentManager();
+                FragmentTransaction transcaction=manager.beginTransaction();
+                transcaction.replace(R.id.containerView,new DrinkFragment()).commit();
+            }
+        });
     }
-    private void parseJson(String  json) {
+    private void parseJson(String json)
+    {
         try
         {
             JSONObject obj=new JSONObject(json);
             if (obj.getString("success").equalsIgnoreCase("true"))
             {
                 JSONArray data=obj.getJSONArray("data");
-                if (data.length()>0)
-                {
-                    for(int i=0;i<data.length();i++)
-                    {
-                     JSONObject d=data.getJSONObject(i);
-                        fi_id.add(d.getString("id"));
-                        image_url.add(d.getString("image"));
-                        price.add(d.getString("price"));
+                if (data.length()>0) {
+                    for (int i = 0; i < data.length(); i++) {
+                        JSONObject d = data.getJSONObject(i);
+                        f_id.add(d.getString("id"));
+                        f_title.add(d.getString("item_name"));
                     }
                     loadFoods();
-                }else
-                {
+                }else {
                     nodatafound.setVisibility(View.VISIBLE);
                     Toast.makeText(getActivity(), "No Data Found", Toast.LENGTH_SHORT).show();
                 }
             }else
             {nodatafound.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(), "Request Unsuccessfull", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Responce Unsuccessfull", Toast.LENGTH_SHORT).show();
             }
+
         }catch (Exception ex)
         {
             Log.d("error", "parseJson: ");
         }
     }
     public void loadData(final String url) {
-        mydialogs.showProgress();
+        mydiaDialogs.showProgress();
         StringRequest request = new StringRequest(
                 Request.Method.POST,
                 url,
@@ -123,21 +123,23 @@ public class FoodFragment  extends Fragment {
                     public void onResponse(String response) {
                         Log.d("onResponse:", response);
                         parseJson(response);
-                        mydialogs.hideProgress();
+                        mydiaDialogs.hideProgress();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("error",error.toString());
-                        mydialogs.hideProgress();nodatafound.setVisibility(View.VISIBLE);
-                        mydialogs.showDialog("Error","Internal Problem occurred ! Pleae try again later");
+                        mydiaDialogs.hideProgress();
+                        nodatafound.setVisibility(View.VISIBLE);
+                        mydiaDialogs.showDialog("Error","Internal Problem occurred ! Pleae try again later");
                     }
                 }) {
             @Override
             protected java.util.Map<String, String> getParams() {
                 java.util.Map<String, String> params = new HashMap<String, String>();
-                params.put("f_id",preferences.getString("f_id",""));
+                params.put("c_id","1");
+                params.put("rcl_id",preferences.getString("r_id",""));
                 return params;
             }
         };
