@@ -49,7 +49,7 @@ public class DrinkFragment  extends Fragment {
 
         for(int i=0;i<10;i++)
         {
-            arrayList.add(new FoodsDataProvider("1","232",R.drawable.lb));
+            arrayList.add(new FoodsDataProvider("1","232",""));
         }
         foodsadapter=new FoodsAdapter(getActivity(),arrayList);
         foodslistview.setAdapter(foodsadapter);

@@ -45,12 +45,15 @@ public class FoodsCategoriesAdapter extends BaseAdapter {
             holder = new Holder();
             view = inflater.inflate(R.layout.customvieew_foodscategories, viewGroup, false);
             holder.id = (TextView) view.findViewById(R.id.id);
+            holder.id.setVisibility(View.INVISIBLE);
             holder.title = (TextView) view.findViewById(R.id.title);
             view.setTag(holder);
         } else {
             holder = (Holder) view.getTag();
         }
-        FoodsCategories serviceManual = serviceManualArrayList.get(i);
+        FoodsCategories d = serviceManualArrayList.get(i);
+        holder.id.setText(d.getId());
+        holder.title.setText(d.gettitle());
         return view;
     }
     class Holder {

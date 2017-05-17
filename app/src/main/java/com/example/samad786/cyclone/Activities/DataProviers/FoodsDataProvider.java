@@ -6,9 +6,9 @@ package com.example.samad786.cyclone.Activities.DataProviers;
 
 public class FoodsDataProvider {
     String id,price;
-    int image;
+    String image;
 
-    public FoodsDataProvider(String id, String price, int image) {
+    public FoodsDataProvider(String id, String price, String image) {
         this.id = id;
         this.price = price;
         this.image = image;
@@ -25,10 +25,10 @@ public class FoodsDataProvider {
     public void setPrice(String price) {
         this.price = price;
     }
-    public int getImage() {
+    public String getImage() {
         return image;
     }
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.samad786.cyclone.Activities.Fragments;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.ListViewAutoScrollHelper;
+import android.support.v4.widget.TextViewCompat;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -69,10 +73,12 @@ public class Resturants_list extends Fragment {
     ArrayList<RestutantsListDataProvider> arraylist;
     ListView listview;
     ArrayList<String> names,id,name,description,logo,titleimage,deliverytime;
+    SharedPreferences preferences;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.list_resturants, null, false);
+        preferences=getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         listview=(ListView)view.findViewById(R.id.listivew);
         names=new ArrayList<>();
         id=new ArrayList<>();
@@ -84,6 +90,10 @@ public class Resturants_list extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView r_id=(TextView)view.findViewById(R.id.id);
+                SharedPreferences.Editor editor=preferences.edit();
+                editor.putString("r_id",r_id.getText().toString());
+                editor.apply();
                 FragmentManager manager=getActivity().getSupportFragmentManager();
                 FragmentTransaction transaction=manager.beginTransaction();
                 transaction.replace(R.id.containerView,new ResturantMenu()).commit();
@@ -104,7 +114,7 @@ public class Resturants_list extends Fragment {
             // check if GPS location can get
             if (gps.canGetLocation()) {
                 Log.d("Your Location", "latitude:" + gps.getLatitude() + ", longitude: " + gps.getLongitude());
-                new LoadPlaces().execute();
+               // new LoadPlaces().execute();
             } else {
                 // Can't get user's current location
                 mydialog.showDialog("GPS Status",
@@ -115,6 +125,7 @@ public class Resturants_list extends Fragment {
             mydialog.showDialog("Error","Internet Connect Problem");
             // stop executing code by return
         }
+        loadServerData("http://www.cyclonedelivery.com/cyclone_app/getRestaurants.php","restaurants");
         return view;
     }
     /**
@@ -218,16 +229,16 @@ public class Resturants_list extends Fragment {
                 JSONArray data = obj.getJSONArray("data");
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject mydata=data.getJSONObject(i);
-                    for(int j=0;j<names.size();j++) {
-                        if (names.get(j).equalsIgnoreCase(mydata.getString("name"))) {
+                  //  for(int j=0;j<names.size();j++) {
+                      //  if (names.get(j).equalsIgnoreCase(mydata.getString("name"))) {
                             id.add(mydata.getString("id"));
                             name.add(mydata.getString("name"));
                             deliverytime.add(mydata.getString("delivery_time"));
                             logo.add(mydata.getString("logo_url"));
                             titleimage.add(mydata.getString("title_image_url"));
                             description.add(mydata.getString("description"));
-                        }
-                    }
+                       // }
+                   // }
                 }
                 if (name.size()>0)
                 {
